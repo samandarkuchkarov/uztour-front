@@ -36,6 +36,7 @@
     height: 36px;
     align-items: center;   
     background: #0099FF;
+    cursor: pointer;
 }
 
 .btn{
@@ -43,6 +44,7 @@
     display: flex;
     height: 36px;
     align-items: center;   
+    cursor: pointer;
 }
 .btn:hover{
     background-color: #f5f5f5;
@@ -74,4 +76,8 @@
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
     color: #fff;
+}
+.avatar{
+    border-radius: 100%;
+    margin-left: 10px;
 }

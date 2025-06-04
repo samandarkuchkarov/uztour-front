@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { i18n, type Locale } from "../../i18n-config";
 import Header from "../components/Header";
+import InitialLogic from "../components/InitialLogic";
 
 const metadataByLocale: Record<Locale, { title: string; description: string }> =
   {
@@ -29,7 +31,7 @@ export async function generateMetadata({
 }: {
   params: { lang: Locale };
 }) {
-  const { lang } = params;
+  const { lang } = await params;
   return metadataByLocale[lang] || metadataByLocale["en"];
 }
 
@@ -39,9 +41,11 @@ export default async function Root(props: {
 }) {
   const params = await props.params;
   const { children } = props;
+
   return (
     <html lang={params.lang}>
       <body>
+        <InitialLogic />
         <Header />
         {children}
       </body>

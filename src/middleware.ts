@@ -4,6 +4,7 @@ import { i18n } from "./i18n-config";
 
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { getUserByToken } from "./api";
 
 function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};
@@ -22,24 +23,20 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  console.log(123);
+  const { pathname, search } = request.nextUrl;
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
-
-    return NextResponse.redirect(
-      new URL(
-        `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-        request.url
-      )
+    const newUrl = new URL(
+      `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}${search}`,
+      request.url
     );
+    return NextResponse.redirect(new URL(newUrl));
   }
 }
-
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|images|favicon.ico).*)"],
 };
