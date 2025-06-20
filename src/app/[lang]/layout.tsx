@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { i18n, type Locale } from "../../i18n-config";
 import Header from "../components/Header";
 import InitialLogic from "../components/InitialLogic";
-
+import "../globals.css";
+import Footer from "../components/Footer";
 const metadataByLocale: Record<Locale, { title: string; description: string }> =
   {
     ru: {
@@ -34,20 +35,23 @@ export async function generateMetadata({
   const { lang } = await params;
   return metadataByLocale[lang] || metadataByLocale["en"];
 }
-
+type SearchParamProps = {
+  searchParams: Record<string, string> | null | undefined;
+};
 export default async function Root(props: {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;
+  searchParams: SearchParamProps;
 }) {
   const params = await props.params;
   const { children } = props;
-
   return (
-    <html lang={params.lang}>
+    <html>
       <body>
         <InitialLogic />
-        <Header />
+        <Header lang={params.lang} />
         {children}
+        <Footer />
       </body>
     </html>
   );

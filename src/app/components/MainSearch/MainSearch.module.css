@@ -1,0 +1,61 @@
+.mainSearch{
+    width: 618px;
+    height: 66px;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+.selectCity{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    padding-right: 15px;
+}
+
+.searchText{
+    color: #848484;
+    font-size: 16px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+}
+.selectDate{
+    padding: 0 15px;
+    height: 36px;
+    border-left: #DDDDDD 1px solid;
+    border-right: #DDDDDD 1px solid;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+
+}
+.selectExcursion{
+    padding: 0 15px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+}
+.btn{
+    background-color: #328AEE;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    padding: 0 10px;
+}
+.btnText{
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+}
