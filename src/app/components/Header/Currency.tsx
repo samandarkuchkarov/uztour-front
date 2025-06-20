@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import classes from "./Header.module.css";
-import Image from "next/image";
+// import Image from "next/image";
 function Currency() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

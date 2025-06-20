@@ -11,7 +11,7 @@ function InitialLogic() {
     if (user) {
       setUser(JSON.parse(user));
     }
-  }, []);
+  }, [setUser]);
   return null;
 }
 

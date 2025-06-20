@@ -2,7 +2,7 @@
 import classes from "./LoginModal.module.css";
 import { useSearchParams } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import OtpInput from "react-otp-input";
 
@@ -28,6 +28,12 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
     };
   }, []);
 
+  const closeModal = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("login");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, [searchParams, router]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -41,13 +47,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
-
-  const closeModal = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("login");
-    router.replace(`?${params.toString()}`, { scroll: false });
-  };
+  }, [closeModal]);
 
   const submit = () => {
     setPageType("comfirmation");
@@ -56,7 +56,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
       setError("Пожалуйста введите свой email");
       return;
     }
-    let regex =
+    const regex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!regex.test(email)) {
       setError("Введите корректный email");
@@ -93,7 +93,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
   };
 
   return (
-    <>
+    <Suspense>
       <div className={classes.overlay}>
         <div ref={modalRef} className={classes.modal}>
           <div className={classes.header}>
@@ -327,7 +327,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
           )}
         </div>
       </div>
-    </>
+    </Suspense>
   );
 }
 

@@ -1,9 +1,9 @@
-import { useEffect } from "react";
 import { i18n, type Locale } from "../../i18n-config";
 import Header from "../components/Header";
 import InitialLogic from "../components/InitialLogic";
 import "../globals.css";
 import Footer from "../components/Footer";
+import { Suspense } from "react";
 const metadataByLocale: Record<Locale, { title: string; description: string }> =
   {
     ru: {
@@ -49,7 +49,10 @@ export default async function Root(props: {
     <html>
       <body>
         <InitialLogic />
-        <Header lang={params.lang} />
+        <Suspense>
+          <Header lang={params.lang} />
+        </Suspense>
+
         {children}
         <Footer />
       </body>

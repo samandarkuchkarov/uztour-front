@@ -7,6 +7,7 @@ import Image from "next/image";
 import LoginModal from "../LoginModal";
 import Currency from "./Currency";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 function Header({ lang }: { lang: string }) {
   const router = useRouter();
@@ -63,7 +64,7 @@ function Header({ lang }: { lang: string }) {
           </div>
         </div>
       </div>
-      {modalVisible && <LoginModal router={router} />}
+      <Suspense>{modalVisible && <LoginModal router={router} />}</Suspense>
     </>
   );
 }
