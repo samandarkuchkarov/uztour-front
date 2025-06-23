@@ -4,6 +4,7 @@ import classes from "./tours.module.css";
 import ExcursionList from "@/components/ExcursionList";
 import useTours from "@/hooks/useTours";
 import Link from "next/link";
+import { Suspense } from "react";
 function Tours() {
   const { currentPage, currentItems, handlePageChange, totalPages } =
     useTours();
@@ -44,4 +45,12 @@ function Tours() {
   );
 }
 
-export default Tours;
+function Page() {
+  return (
+    <Suspense>
+      <Tours />
+    </Suspense>
+  );
+}
+
+export default Page;

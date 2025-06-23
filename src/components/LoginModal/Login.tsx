@@ -1,4 +1,3 @@
-import { useState } from "react";
 import classes from "./LoginModal.module.css";
 import Image from "next/image";
 function Login({

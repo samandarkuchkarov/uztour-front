@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import classes from "./Select.module.css";
-import { Select as SelectUI, SelectSection, SelectItem } from "@heroui/select";
 
 function Select({
   svg,

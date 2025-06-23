@@ -1,8 +1,6 @@
-function generateStaticParams() {}
+import { PageProps } from "../../../../../.next/types/app/[lang]/page";
 
-function Tour({ params }: { params: { slug: string } }) {
+export default function Tour({ params }: PageProps) {
   console.log(params);
   return <div></div>;
 }
-
-export default Tour;

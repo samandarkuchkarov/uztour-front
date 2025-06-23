@@ -19,6 +19,9 @@ function ExcursionList({
   setCurrentPage?: (page: number) => void;
   totalPages?: number;
 }) {
+  const onChange = (_: any, page: number) => {
+    page && setCurrentPage && setCurrentPage(page);
+  };
   return (
     <div className={classes.wrapper}>
       <h2 className={classes.title}>{title}</h2>
@@ -146,9 +149,7 @@ function ExcursionList({
         <div className={classes.pagination}>
           <Pagination
             page={currentPage}
-            onChange={(_, page) => {
-              page && setCurrentPage && setCurrentPage(page);
-            }}
+            onChange={onChange}
             color="primary"
             size="large"
             siblingCount={1}

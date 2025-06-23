@@ -73,7 +73,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
       return;
     }
 
-    const massage = await authUser({ email, isGuide });
+    await authUser({ email, isGuide });
     setError("");
     setPageType("comfirmation");
   };
