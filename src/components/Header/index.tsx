@@ -8,12 +8,17 @@ import LoginModal from "../LoginModal";
 import Currency from "./Currency";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import Link from "next/link";
 
 function Header({ lang }: { lang: string }) {
   const router = useRouter();
 
   const handleLogin = () => {
     router.replace("?login=true", { scroll: false });
+  };
+
+  const handleGuide = () => {
+    router.replace("?login=guide", { scroll: false });
   };
 
   const user = useStore((state) => state.user);
@@ -25,27 +30,29 @@ function Header({ lang }: { lang: string }) {
       <div className={classes.wrapper}>
         <div className={classes.header}>
           <div className={classes.leftSide}>
-            <div className={classes.logo}>
+            <Link href="/" className={classes.logo}>
               <Image
                 src={"/images/logo.svg"}
                 alt="logo"
                 width={98}
                 height={22}
               />
-            </div>
+            </Link>
             <Search />
           </div>
           <div className={classes.center}>
             <LangBtn lang={lang} />
             <Currency />
-            <div className={classes.links}>Экскурсии</div>
+            <Link href={"/tours"} className={classes.links}>
+              Экскурсии
+            </Link>
             <div className={classes.links}>Заказать трансфер</div>
             <div className={classes.links}>Помощь</div>
           </div>
           <div className={classes.leftSide}>
             {!user ? (
               <>
-                <div className={classes.secondaryBtn}>
+                <div onClick={handleGuide} className={classes.secondaryBtn}>
                   <p className={classes.secondaryBtnText}>Стать гидом</p>
                 </div>
                 <div onClick={handleLogin} className={classes.mainBtn}>

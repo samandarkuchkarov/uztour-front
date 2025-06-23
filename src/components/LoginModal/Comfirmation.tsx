@@ -5,10 +5,12 @@ function Comfirmation({
   error,
   submitCode,
   resendCode,
+  title,
 }: {
   error: string;
   submitCode: ({ otp }: { otp: string }) => void;
   resendCode: () => void;
+  title?: string;
 }) {
   const [otp, setOtp] = useState("");
   const [time, setTime] = useState(60);
@@ -35,10 +37,17 @@ function Comfirmation({
   return (
     <>
       <p className={classes.comfirmationText}>
-        Код отправлен на ваш Email<br></br>Проверьте папку «Входящие» и «Спам»
+        {title ? (
+          title
+        ) : (
+          <>
+            Код отправлен на ваш Email<br></br>Проверьте папку «Входящие» и
+            «Спам»
+          </>
+        )}
       </p>
 
-      <p className={classes.changeEmail}>Изменить Email</p>
+      {/* <p className={classes.changeEmail}>Изменить Email</p> */}
 
       <p className={classes.enterCode}>Введите код</p>
       <OTPInput

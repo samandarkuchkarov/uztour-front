@@ -16,4 +16,13 @@ export interface ExcursionType {
   price: number;
   forPerson: boolean;
   priceWithoutDiscount: number;
+  id: number;
+}
+
+export interface GuideSubmitData {
+  name: string;
+  lastName: string;
+  phone: string;
+  isCompany: boolean;
+  companyName: string;
 }

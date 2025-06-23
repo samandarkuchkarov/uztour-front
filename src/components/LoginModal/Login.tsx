@@ -91,9 +91,9 @@ function Login({
         <h2 className={classes.submitText}>Продолжить</h2>
       </div>
       <div className={classes.socials}>
-        <div className={classes.line}></div>
-        <p className={classes.loginBySocial}>Или войти с помощью</p>
-        <div className={classes.line}></div>
+        <div className={classes.line1}></div>
+        <p className={classes.loginBySocial}>Или продолжить с помощью</p>
+        <div className={classes.line1}></div>
       </div>
       <div className={classes.socialsContainer}>
         <div className={classes.socialsItem}>
@@ -109,12 +109,6 @@ function Login({
         </div>
       </div>
 
-      {isGuide == 1 && (
-        <div className={classes.signup}>
-          <p className={classes.signupText}>Нет аккаунта?</p>
-          <p className={classes.signupText2}>Регистрация</p>
-        </div>
-      )}
       <div className={classes.agreement}>
         <p className={classes.agreementText}>
           Нажимая “Продолжить”, вы соглашаетесь с условиями <br />

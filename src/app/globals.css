@@ -35,6 +35,10 @@ body {
   overflow-x: hidden;
   font-family: 'Manrope', sans-serif;
   margin: 0px;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 * {
@@ -53,4 +57,18 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+
+
+
+.css-ptck8z-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: #328AEE !important;
+  color: #fff !important;
+  border: none !important;
+}
+.css-ptck8z-MuiButtonBase-root-MuiPaginationItem-root{
+  color: #848484 !important;
+  border: none !important;
+  background-color: #fff !important;
 }

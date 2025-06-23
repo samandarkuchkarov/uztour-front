@@ -3,22 +3,30 @@ import classes from "./LoginModal.module.css";
 import { useSearchParams } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import OtpInput from "react-otp-input";
 import Login from "./Login";
 import Comfirmation from "./Comfirmation";
 import GuideForm from "./GuideForm";
+import { GuideSubmitData } from "@/types";
+import { authUser, completeGuideData, verifyCode, verifyPhone } from "@/api";
 
 function LoginModal({ router }: { router: AppRouterInstance }) {
   const searchParams = useSearchParams();
   const modalRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
+  const param = searchParams.get("login");
 
   const [pageType, setPageType] = useState<
-    "login" | "comfirmation" | "guideForm"
+    "login" | "comfirmation" | "guideForm" | "comfirmationGuidePhone"
   >("login");
-  const [isGuide, setIsGuide] = useState(0);
+  const [formData, setFormData] = useState<GuideSubmitData>({
+    name: "",
+    lastName: "",
+    phone: "",
+    isCompany: false,
+    companyName: "",
+  });
+  const [isGuide, setIsGuide] = useState(param == "guide" ? 1 : 0);
 
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setError("");
@@ -53,8 +61,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
     };
   }, [closeModal]);
 
-  const submit = () => {
-    setPageType("comfirmation");
+  const submit = async () => {
     if (!email) {
       setError("Пожалуйста введите свой email");
       return;
@@ -65,20 +72,61 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
       setError("Введите корректный email");
       return;
     }
+
+    const massage = await authUser({ email, isGuide });
     setError("");
+    setPageType("comfirmation");
   };
 
-  const submitCode = ({ otp }: { otp: string }) => {
-    if (isGuide == 1) {
-      setPageType("guideForm");
-    }
+  const submitCode = async ({ otp }: { otp: string }) => {
     if (!otp && otp.length < 4) {
       setError("Введен неверный код, попробуйте снова");
       return;
     }
+    const message = await verifyCode({ email, code: otp, isGuide });
+    console.log(message);
+    if (isGuide == 1) {
+      setPageType("guideForm");
+    }
+  };
+
+  const submitGuidePhone = async ({ otp }: { otp: string }) => {
+    if (!otp && otp.length < 4) {
+      setError("Введен неверный код, попробуйте снова");
+      return;
+    }
+    const data = await verifyPhone({
+      phone: formData.phone,
+      email,
+      smsCode: otp,
+    });
+    console.log(data);
+    setPageType("comfirmationGuidePhone");
   };
 
   const resendCode = () => {};
+  const resendGuideCode = () => {};
+
+  const submitGuideData = async () => {
+    const massage = await completeGuideData({
+      email,
+      ...formData,
+    });
+    console.log(massage);
+    setPageType("comfirmationGuidePhone");
+  };
+
+  const back = () => {
+    if (pageType == "comfirmationGuidePhone") {
+      setPageType("guideForm");
+    }
+    if (pageType == "guideForm") {
+      setPageType("login");
+    }
+    if (pageType == "comfirmation") {
+      setPageType("login");
+    }
+  };
 
   return (
     <Suspense>
@@ -92,7 +140,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
           <div className={classes.header}>
             <div
               style={{ cursor: pageType !== "login" ? "pointer" : "unset" }}
-              onClick={() => setPageType("login")}
+              onClick={back}
               className={classes.side}
             >
               {pageType !== "login" && (
@@ -127,7 +175,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
               )}
             </div>
             <h2 className={classes.title}>
-              {pageType == "login" && "Войти в аккаунт"}
+              {pageType == "login" && "Авторизация"}
               {pageType == "comfirmation" && "Подтверждение"}
               {pageType == "guideForm" && "Регистрация автора тура"}
             </h2>
@@ -178,7 +226,22 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
               error={error}
             />
           )}
-          {pageType === "guideForm" && <GuideForm />}
+          {pageType === "guideForm" && (
+            <GuideForm
+              formData={formData}
+              setFormData={setFormData}
+              submitGuideData={submitGuideData}
+              email={email}
+            />
+          )}
+          {pageType === "comfirmationGuidePhone" && (
+            <Comfirmation
+              resendCode={resendGuideCode}
+              title={"Код отправлен на номер телефона"}
+              submitCode={submitGuidePhone}
+              error={error}
+            />
+          )}
         </div>
       </div>
     </Suspense>

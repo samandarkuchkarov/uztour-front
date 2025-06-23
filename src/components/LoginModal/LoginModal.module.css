@@ -121,7 +121,7 @@
     font-size: 14px;
     margin: 0 10px;
 }
-.line{
+.line1{
     flex: 1;
     height: 1px;
     background-color: #DDDDDD;
@@ -248,4 +248,46 @@
 
 .guideFormModal{
     width: 672px;
+    height: 486px;
+}
+.guideText{
+    color: #848484;
+    font-size: 16px;
+    text-align: center;
+    margin-top: -10px;
+}
+.fieldWrapper{
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+.area{
+    width: calc(50% - 6.5px);
+}
+.line{
+    width: 632px;
+    background-color: #DDDDDD;
+    height: 1px;
+    border-radius: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex: none;
+}
+
+.policy{
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.policyText{
+    font-size: 12px;
+    color: #242D3F;
+}
+.policyText span{
+    color: #328AEE;
 }

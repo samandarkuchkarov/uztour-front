@@ -1,12 +1,23 @@
+"use client";
 import { ExcursionType } from "@/types";
 import classes from "./ExcursionList.module.css";
+import { Pagination } from "@mui/material";
+import Link from "next/link";
 
 function ExcursionList({
   title,
   data,
+  isPagination,
+  currentPage,
+  setCurrentPage,
+  totalPages,
 }: {
   title: string;
   data: ExcursionType[];
+  isPagination?: boolean;
+  currentPage?: number;
+  setCurrentPage?: (page: number) => void;
+  totalPages?: number;
 }) {
   return (
     <div className={classes.wrapper}>
@@ -115,17 +126,38 @@ function ExcursionList({
                     {excursion.priceWithoutDiscount} USD
                   </p>
                 </div>
-                <div className={classes.submit}>
+                <Link
+                  href={`/tours/${excursion.id}`}
+                  className={classes.submit}
+                >
                   <p className={classes.submitText}>Забронировать</p>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className={classes.more}>
-        <p className={classes.moreText}>Все экскурсии</p>
-      </div>
+      {!isPagination && (
+        <Link href="/tours" className={classes.more}>
+          <p className={classes.moreText}>Все экскурсии</p>
+        </Link>
+      )}
+      {isPagination && (
+        <div className={classes.pagination}>
+          <Pagination
+            page={currentPage}
+            onChange={(_, page) => {
+              page && setCurrentPage && setCurrentPage(page);
+            }}
+            color="primary"
+            size="large"
+            siblingCount={1}
+            count={totalPages}
+            variant="outlined"
+            shape="rounded"
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { i18n, type Locale } from "../../i18n-config";
-import Header from "../components/Header";
-import InitialLogic from "../components/InitialLogic";
+import Header from "../../components/Header";
+import InitialLogic from "../../components/InitialLogic";
 import "../globals.css";
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 import { Suspense } from "react";
 const metadataByLocale: Record<Locale, { title: string; description: string }> =
   {
