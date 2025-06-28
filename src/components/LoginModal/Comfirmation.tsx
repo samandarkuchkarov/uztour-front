@@ -1,22 +1,26 @@
 import OTPInput from "react-otp-input";
 import classes from "./LoginModal.module.css";
 import { useEffect, useRef, useState } from "react";
+import PrimaryBtn from "../ui/PrimaryBtn";
 function Comfirmation({
   error,
   submitCode,
   resendCode,
   title,
+  loading,
 }: {
   error: string;
   submitCode: ({ otp }: { otp: string }) => void;
   resendCode: () => void;
   title?: string;
+  loading?: boolean;
 }) {
   const [otp, setOtp] = useState("");
   const [time, setTime] = useState(60);
   const timer = useRef<NodeJS.Timeout>(undefined);
   const startTimer = () => {
     clearInterval(timer.current);
+    setTime(60);
     timer.current = setInterval(() => {
       setTime((prev) => {
         if (prev - 1 === 0) {
@@ -47,8 +51,6 @@ function Comfirmation({
         )}
       </p>
 
-      {/* <p className={classes.changeEmail}>Изменить Email</p> */}
-
       <p className={classes.enterCode}>Введите код</p>
       <OTPInput
         value={otp}
@@ -67,11 +69,15 @@ function Comfirmation({
         {error && <p className={classes.errorText}>{error}</p>}
       </div>
 
-      <div onClick={() => submitCode({ otp })} className={classes.submitBtn}>
-        <h2 className={classes.submitText}>Продолжить</h2>
-      </div>
+      <PrimaryBtn
+        loading={loading}
+        onClick={() => submitCode({ otp })}
+        text="Продолжить"
+      />
+
       <div
         onClick={() => {
+          if (time) return;
           startTimer();
           resendCode();
         }}
@@ -82,7 +88,7 @@ function Comfirmation({
           style={{ color: time ? "#848484" : "#328AEE" }}
           className={classes.timerText}
         >
-          Отправить снова через: {time} сек
+          {time ? <>Отправить снова через: {time} сек</> : <>Отправить снова</>}
         </h2>
       </div>
     </>

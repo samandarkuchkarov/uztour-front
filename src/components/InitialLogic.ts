@@ -10,6 +10,8 @@ function InitialLogic() {
     const user = localStorage.getItem("user");
     if (user) {
       setUser(JSON.parse(user));
+    } else {
+      setUser(null);
     }
   }, [setUser]);
   return null;

@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 1300px;
+    width: 1144px;
 }
 
 
@@ -89,6 +89,14 @@
 .avatar{
     border-radius: 100%;
     margin-left: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    background-color: #0FA53A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .mainBtn{
@@ -192,4 +200,9 @@
 }
 .langFlag{
     margin-right: 10px;
+}
+.avatarText{
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
 }

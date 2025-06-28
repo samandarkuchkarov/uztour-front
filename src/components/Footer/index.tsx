@@ -21,7 +21,7 @@ function Footer() {
           <div className={classes.footerContent}>
             <p className={classes.footerText}>Экскурсии</p>
             <p className={classes.footerText}>Заказать трансфер</p>
-            <p className={classes.footerText}>Помощь</p>
+            {/* <p className={classes.footerText}>Помощь</p> */}
           </div>
           <div className={classes.footerContent}>
             <div className={classes.social}>

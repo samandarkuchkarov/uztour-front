@@ -2,20 +2,23 @@
 import classes from "./LoginModal.module.css";
 import { useSearchParams } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Login from "./Login";
 import Comfirmation from "./Comfirmation";
 import GuideForm from "./GuideForm";
 import { GuideSubmitData } from "@/types";
 import { authUser, completeGuideData, verifyCode, verifyPhone } from "@/api";
+import axios, { AxiosError } from "axios";
+import useStore from "@/store/useStore";
 
 function LoginModal({ router }: { router: AppRouterInstance }) {
   const searchParams = useSearchParams();
   const modalRef = useRef<HTMLDivElement>(null);
+  const setUser = useStore((state) => state.setUser);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const param = searchParams.get("login");
-
+  const [loading, setLoading] = useState(false);
   const [pageType, setPageType] = useState<
     "login" | "comfirmation" | "guideForm" | "comfirmationGuidePhone"
   >("login");
@@ -72,10 +75,21 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
       setError("Введите корректный email");
       return;
     }
-
-    await authUser({ email, isGuide });
-    setError("");
-    setPageType("comfirmation");
+    setLoading(true);
+    try {
+      const res = await authUser({ email, isGuide });
+      setLoading(false);
+      if (res.message == "Code sent to email") {
+        setError("");
+        setPageType("comfirmation");
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const submitCode = async ({ otp }: { otp: string }) => {
@@ -83,10 +97,30 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
       setError("Введен неверный код, попробуйте снова");
       return;
     }
-    const message = await verifyCode({ email, code: otp, isGuide });
-    console.log(message);
-    if (isGuide == 1) {
-      setPageType("guideForm");
+    setLoading(true);
+    try {
+      const res = await verifyCode({ email, code: otp, isGuide });
+      if ("access_token" in res) {
+        setUser(res);
+        setError("");
+        localStorage.setItem("user", JSON.stringify(res));
+        closeModal();
+        redirect();
+      }
+      if ("status" in res && res.status == "need_profile_completion") {
+        if (isGuide == 1) {
+          setError("");
+          setPageType("guideForm");
+        }
+      }
+    } catch (e) {
+      if (axios.isAxiosError(e) && e.response?.data?.message) {
+        setError(e.response.data.message);
+      } else {
+        setError("An unknown error occurred");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,25 +129,56 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
       setError("Введен неверный код, попробуйте снова");
       return;
     }
-    const data = await verifyPhone({
-      phone: formData.phone,
-      email,
-      smsCode: otp,
-    });
-    console.log(data);
-    setPageType("comfirmationGuidePhone");
+    setLoading(true);
+    try {
+      const data = await verifyPhone({
+        phone: formData.phone,
+        email,
+        smsCode: otp,
+      });
+      if ("access_token" in data) {
+        setUser(data);
+        setError("");
+        localStorage.setItem("user", JSON.stringify(data));
+        closeModal();
+      }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setError(e.response?.data?.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const resendCode = () => {};
-  const resendGuideCode = () => {};
+  const resendCode = async () => {
+    setLoading(true);
+    setError("");
+    await authUser({ email, isGuide });
+    setLoading(false);
+  };
+  const resendGuideCode = () => {
+    submitGuideData();
+  };
 
   const submitGuideData = async () => {
-    const massage = await completeGuideData({
-      email,
-      ...formData,
-    });
-    console.log(massage);
-    setPageType("comfirmationGuidePhone");
+    setLoading(true);
+    try {
+      const res = await completeGuideData({
+        email,
+        ...formData,
+      });
+      if (res.message == "Profile completed, SMS sent") {
+        setPageType("comfirmationGuidePhone");
+        setError("");
+      }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setError(e.response?.data?.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const back = () => {
@@ -128,8 +193,28 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
     }
   };
 
+  const redirect = () => {
+    const excursion_id = searchParams.get("excursion_id");
+    const date = searchParams.get("date");
+    const adult = searchParams.get("adult");
+    const child = searchParams.get("child");
+    if (excursion_id && date && adult && child) {
+      router.push(
+        "?excursion_id=" +
+          excursion_id +
+          "&date=" +
+          date +
+          "&adult=" +
+          adult +
+          "&child=" +
+          child +
+          "&confirm-modal=true"
+      );
+    }
+  };
+
   return (
-    <Suspense>
+    <div>
       <div className={classes.overlay}>
         <div
           ref={modalRef}
@@ -216,6 +301,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
               email={email}
               error={error}
               submit={submit}
+              loading={loading}
             />
           )}
 
@@ -224,6 +310,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
               resendCode={resendCode}
               submitCode={submitCode}
               error={error}
+              loading={loading}
             />
           )}
           {pageType === "guideForm" && (
@@ -237,6 +324,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
           {pageType === "comfirmationGuidePhone" && (
             <Comfirmation
               resendCode={resendGuideCode}
+              loading={loading}
               title={"Код отправлен на номер телефона"}
               submitCode={submitGuidePhone}
               error={error}
@@ -244,7 +332,7 @@ function LoginModal({ router }: { router: AppRouterInstance }) {
           )}
         </div>
       </div>
-    </Suspense>
+    </div>
   );
 }
 

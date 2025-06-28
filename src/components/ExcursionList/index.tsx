@@ -133,7 +133,7 @@ function ExcursionList({
                   href={`/tours/${excursion.id}`}
                   className={classes.submit}
                 >
-                  <p className={classes.submitText}>Забронировать</p>
+                  <p className={classes.submitText}>Подробнее</p>
                 </Link>
               </div>
             </div>

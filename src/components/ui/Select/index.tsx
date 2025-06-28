@@ -8,6 +8,7 @@ function Select({
   options,
   label,
   contain,
+  white,
 }: {
   svg?: ReactNode;
   value: string;
@@ -15,6 +16,7 @@ function Select({
   options: string[];
   label?: string;
   contain?: boolean;
+  white?: boolean;
 }) {
   return (
     <div
@@ -23,7 +25,10 @@ function Select({
     >
       {label && <p className={classes.label}>{label}</p>}
 
-      <div className={classes.wrapper}>
+      <div
+        style={{ background: white ? "#fff" : "#F5F5F5" }}
+        className={classes.wrapper}
+      >
         <svg
           width="8"
           height="5"
@@ -38,7 +43,8 @@ function Select({
 
         <select
           style={{
-            paddingLeft: svg ? "40px" : "10px",
+            paddingLeft: svg ? "44px" : "10px",
+            background: white ? "#fff" : "#F5F5F5",
           }}
           className={classes.input}
           value={value}

@@ -1,9 +1,17 @@
 export interface UserType {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
+  access_token: string;
+  user: {
+    email: string;
+    id: string;
+    isEmailVerified: boolean;
+    type: "customer" | "partner";
+  };
 }
+export type ErrorResponse = {
+  message: string;
+  error: string;
+  statusCode: number;
+};
 
 export interface ExcursionType {
   name: string;
@@ -17,6 +25,7 @@ export interface ExcursionType {
   forPerson: boolean;
   priceWithoutDiscount: number;
   id: number;
+  images: string[];
 }
 
 export interface GuideSubmitData {

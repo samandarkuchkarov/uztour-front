@@ -1,11 +1,11 @@
 import { UserType } from "@/types";
 import { StateCreator } from "zustand";
 export interface UserState {
-  user: UserType | null;
-  setUser: (user: UserType) => void;
+  user: UserType | null | 0;
+  setUser: (user: UserType | null | 0) => void;
 }
 
 export const createUserSlice: StateCreator<UserState> = (set) => ({
-  user: null,
+  user: 0,
   setUser: (user) => set({ user }),
 });

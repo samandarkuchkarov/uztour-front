@@ -9,6 +9,7 @@ import Currency from "./Currency";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
+import ConfirmBooking from "../ConfirmBooking";
 
 function Header({ lang }: { lang: string }) {
   const router = useRouter();
@@ -24,6 +25,7 @@ function Header({ lang }: { lang: string }) {
   const user = useStore((state) => state.user);
   const searchParams = useSearchParams();
   const modalVisible = searchParams.get("login");
+  const confirmModal = searchParams.get("confirm-modal");
 
   return (
     <>
@@ -46,11 +48,13 @@ function Header({ lang }: { lang: string }) {
             <Link href={"/tours"} className={classes.links}>
               Экскурсии
             </Link>
-            <div className={classes.links}>Заказать трансфер</div>
-            <div className={classes.links}>Помощь</div>
+            <Link href={"/transfer"} className={classes.links}>
+              Заказать трансфер
+            </Link>
+            {/* <div className={classes.links}>Помощь</div> */}
           </div>
           <div className={classes.leftSide}>
-            {!user ? (
+            {!user && user !== 0 ? (
               <>
                 <div onClick={handleGuide} className={classes.secondaryBtn}>
                   <p className={classes.secondaryBtnText}>Стать гидом</p>
@@ -60,18 +64,21 @@ function Header({ lang }: { lang: string }) {
                 </div>
               </>
             ) : (
-              <Image
-                width={30}
-                height={30}
-                alt="avatar"
-                className={classes.avatar}
-                src="/images/avatar.png"
-              />
+              user !== 0 && (
+                <div className={classes.avatar}>
+                  <p className={classes.avatarText}>
+                    {user.user.email[0] + "" + user.user.email[1]}
+                  </p>
+                </div>
+              )
             )}
           </div>
         </div>
       </div>
-      <Suspense>{modalVisible && <LoginModal router={router} />}</Suspense>
+      <Suspense>
+        {modalVisible && <LoginModal router={router} />}
+        {confirmModal && <ConfirmBooking router={router} />}
+      </Suspense>
     </>
   );
 }

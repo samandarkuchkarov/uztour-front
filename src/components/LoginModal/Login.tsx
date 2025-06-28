@@ -1,3 +1,4 @@
+import PrimaryBtn from "../ui/PrimaryBtn";
 import classes from "./LoginModal.module.css";
 import Image from "next/image";
 function Login({
@@ -7,6 +8,7 @@ function Login({
   handleChangeEmail,
   submit,
   error,
+  loading,
 }: {
   email: string;
   setIsGuide: (isGuide: number) => void;
@@ -14,6 +16,7 @@ function Login({
   handleChangeEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
   submit: () => void;
   error: string;
+  loading?: boolean;
 }) {
   return (
     <>
@@ -86,9 +89,8 @@ function Login({
           <p className={classes.errorText}>{error}</p>
         </div>
       )}
-      <div onClick={submit} className={classes.submitBtn}>
-        <h2 className={classes.submitText}>Продолжить</h2>
-      </div>
+      <PrimaryBtn loading={loading} text="Продолжить" onClick={submit} />
+
       <div className={classes.socials}>
         <div className={classes.line1}></div>
         <p className={classes.loginBySocial}>Или продолжить с помощью</p>

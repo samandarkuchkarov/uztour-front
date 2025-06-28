@@ -44,9 +44,9 @@
     left: 2px;
     fill: none;
     stroke: #fff;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    strokeWidth: 2;
+    strokeLinecap: round;
+    strokeLinejoin: round;
     stroke-dasharray: 16px;
     stroke-dashoffset: 16px;
     transition: all 0.3s ease;

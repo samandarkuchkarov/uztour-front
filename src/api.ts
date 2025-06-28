@@ -1,4 +1,5 @@
 import { API } from "./http-client";
+import { ErrorResponse, UserType } from "./types";
 
 export const authUser = async ({
   email,
@@ -7,10 +8,10 @@ export const authUser = async ({
   email: string;
   isGuide: number;
 }) => {
-  const response = await API.post<{ data: { message: string } }>(
-    `/auth/request-code`,
-    { email, type: isGuide ? "partner" : "customer" }
-  );
+  const response = await API.post<{ message: string }>(`/auth/request-code`, {
+    email,
+    type: isGuide ? "partner" : "customer",
+  });
   return response.data;
 };
 
@@ -23,10 +24,13 @@ export const verifyCode = async ({
   code: string;
   isGuide: number;
 }) => {
-  const response = await API.post<{ data: { message: string } }>(
-    `/auth/verify-code`,
-    { email, code, type: isGuide ? "partner" : "customer" }
-  );
+  type VerifyCodeResponse = UserType | ErrorResponse | { status: string };
+
+  const response = await API.post<VerifyCodeResponse>(`/auth/verify-code`, {
+    email,
+    code,
+    type: isGuide ? "partner" : "customer",
+  });
   return response.data;
 };
 
@@ -45,18 +49,17 @@ export const completeGuideData = async ({
   companyName: string;
   email: string;
 }) => {
-  const response = await API.post<{ data: { message: string } }>(
+  const response = await API.post<{ message: string }>(
     "/auth/complete-profile",
     {
       phone,
       firstName: name,
       lastName,
-      partnerType: isCompany ? "company" : "person",
-      companyName,
+      partnerType: isCompany ? "company" : "individual",
+      companyName: companyName ? companyName : undefined,
       email,
     }
   );
-  console.log(response);
   return response.data;
 };
 
@@ -69,9 +72,19 @@ export const verifyPhone = async ({
   email: string;
   smsCode: string;
 }) => {
-  const response = await API.post<{ data: { message: string } }>(
-    `/auth/verify-phone`,
-    { phone, email, smsCode }
-  );
+  type VerifyCodeResponse = UserType | ErrorResponse | { status: string };
+  const response = await API.post<VerifyCodeResponse>(`/auth/verify-phone`, {
+    phone,
+    email,
+    smsCode,
+  });
   return response.data;
+};
+
+export const getUser = async () => {
+  const response = await API.get<{ data: { message: string } }>(
+    `/users/profile`,
+    {}
+  );
+  console.log(response);
 };

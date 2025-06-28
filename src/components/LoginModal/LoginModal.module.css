@@ -9,7 +9,7 @@
 }
 
 .modal{
-    width: 400px;
+    width: 378px;
     padding: 20px;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .08);
     background-color: #fff;
@@ -93,27 +93,14 @@
     position: absolute;
     left: 14px;
 }
-.submitBtn{
-    background-color: #328AEE;
-    height: 50px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 14px;
-    cursor: pointer;
-}
-.submitText{
-    color: #fff;
-    font-size: 16px;
-    font-family: 'Manrope', sans-serif;
-    font-weight: 500;
-}
+
+
 .socials{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 14px;
+    margin-top: 14px;
 }
 .loginBySocial{
     color: #848484;
@@ -236,6 +223,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 14px;
+    margin-top: 14px;
     cursor: pointer;
 }
 

@@ -50,6 +50,7 @@ function Filter() {
     <div className={classes.container}>
       <div className={classes.left}>
         <Select
+          white
           value={filterData.city ? filterData.city : listCity[0]}
           options={listCity}
           contain={true}
@@ -60,6 +61,7 @@ function Filter() {
           }
         />
         <Select
+          white
           value={filterData.type ? filterData.type : listType[0]}
           options={listType}
           contain={true}
@@ -70,6 +72,7 @@ function Filter() {
           }
         />
         <Select
+          white
           value={filterData.lang ? filterData.lang : listLanguage[0]}
           options={listLanguage}
           contain={true}
@@ -81,6 +84,7 @@ function Filter() {
         />
 
         <Select
+          white
           value={filterData.price ? filterData.price : listPrice[0]}
           options={listPrice}
           contain={true}
@@ -91,6 +95,7 @@ function Filter() {
           }
         />
         <Select
+          white
           value={filterData.duration ? filterData.duration : listDuration[0]}
           options={listDuration}
           contain={true}
@@ -103,6 +108,7 @@ function Filter() {
       </div>
       <div className={classes.right}>
         <Select
+          white
           value={filterData.sort ? filterData.sort : listSort[0]}
           options={listSort}
           svg={

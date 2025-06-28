@@ -13,6 +13,12 @@ export const excursions: ExcursionType[] = [
     forPerson: false,
     priceWithoutDiscount: 530,
     id: 1,
+    images: [
+      "/images/excursion2.png",
+      "/images/excursion3.png",
+      "/images/excursion4.png",
+      "/images/excursion5.png",
+    ],
   },
   {
     image: "/images/excursion2.png",
@@ -26,6 +32,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 400,
     id: 2,
+    images: [
+      "/images/excursion3.png",
+      "/images/excursion4.png",
+      "/images/excursion5.png",
+      "/images/excursion6.png",
+    ],
   },
   {
     image: "/images/excursion3.png",
@@ -39,6 +51,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 360,
     id: 3,
+    images: [
+      "/images/excursion4.png",
+      "/images/excursion5.png",
+      "/images/excursion6.png",
+      "/images/excursion7.png",
+    ],
   },
   {
     image: "/images/excursion4.png",
@@ -52,6 +70,12 @@ export const excursions: ExcursionType[] = [
     forPerson: false,
     priceWithoutDiscount: 490,
     id: 4,
+    images: [
+      "/images/excursion5.png",
+      "/images/excursion6.png",
+      "/images/excursion7.png",
+      "/images/excursion8.png",
+    ],
   },
   {
     image: "/images/excursion5.png",
@@ -65,6 +89,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 250,
     id: 5,
+    images: [
+      "/images/excursion6.png",
+      "/images/excursion7.png",
+      "/images/excursion8.png",
+      "/images/excursion9.png",
+    ],
   },
   {
     image: "/images/excursion6.png",
@@ -78,6 +108,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 620,
     id: 6,
+    images: [
+      "/images/excursion7.png",
+      "/images/excursion8.png",
+      "/images/excursion9.png",
+      "/images/excursion10.png",
+    ],
   },
   {
     image: "/images/excursion7.png",
@@ -91,6 +127,12 @@ export const excursions: ExcursionType[] = [
     forPerson: false,
     priceWithoutDiscount: 370,
     id: 7,
+    images: [
+      "/images/excursion8.png",
+      "/images/excursion9.png",
+      "/images/excursion10.png",
+      "/images/excursion11.png",
+    ],
   },
   {
     image: "/images/excursion8.png",
@@ -104,6 +146,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 320,
     id: 8,
+    images: [
+      "/images/excursion9.png",
+      "/images/excursion10.png",
+      "/images/excursion11.png",
+      "/images/excursion12.png",
+    ],
   },
   {
     image: "/images/excursion9.png",
@@ -117,6 +165,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 500,
     id: 9,
+    images: [
+      "/images/excursion10.png",
+      "/images/excursion11.png",
+      "/images/excursion12.png",
+      "/images/excursion13.png",
+    ],
   },
   {
     image: "/images/excursion10.png",
@@ -130,6 +184,12 @@ export const excursions: ExcursionType[] = [
     forPerson: false,
     priceWithoutDiscount: 380,
     id: 10,
+    images: [
+      "/images/excursion11.png",
+      "/images/excursion12.png",
+      "/images/excursion13.png",
+      "/images/excursion14.png",
+    ],
   },
   {
     image: "/images/excursion11.png",
@@ -143,6 +203,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 360,
     id: 11,
+    images: [
+      "/images/excursion12.png",
+      "/images/excursion13.png",
+      "/images/excursion14.png",
+      "/images/excursion15.png",
+    ],
   },
   {
     image: "/images/excursion12.png",
@@ -156,6 +222,12 @@ export const excursions: ExcursionType[] = [
     forPerson: false,
     priceWithoutDiscount: 500,
     id: 12,
+    images: [
+      "/images/excursion13.png",
+      "/images/excursion14.png",
+      "/images/excursion15.png",
+      "/images/excursion16.png",
+    ],
   },
   {
     image: "/images/excursion13.png",
@@ -169,6 +241,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 420,
     id: 13,
+    images: [
+      "/images/excursion14.png",
+      "/images/excursion15.png",
+      "/images/excursion16.png",
+      "/images/excursion17.png",
+    ],
   },
   {
     image: "/images/excursion14.png",
@@ -182,6 +260,12 @@ export const excursions: ExcursionType[] = [
     forPerson: false,
     priceWithoutDiscount: 450,
     id: 14,
+    images: [
+      "/images/excursion15.png",
+      "/images/excursion16.png",
+      "/images/excursion17.png",
+      "/images/excursion1.png",
+    ],
   },
   {
     image: "/images/excursion15.png",
@@ -195,6 +279,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 460,
     id: 15,
+    images: [
+      "/images/excursion16.png",
+      "/images/excursion17.png",
+      "/images/excursion1.png",
+      "/images/excursion2.png",
+    ],
   },
   {
     image: "/images/excursion16.png",
@@ -208,6 +298,12 @@ export const excursions: ExcursionType[] = [
     forPerson: false,
     priceWithoutDiscount: 350,
     id: 16,
+    images: [
+      "/images/excursion17.png",
+      "/images/excursion1.png",
+      "/images/excursion2.png",
+      "/images/excursion3.png",
+    ],
   },
   {
     image: "/images/excursion17.png",
@@ -221,6 +317,12 @@ export const excursions: ExcursionType[] = [
     forPerson: true,
     priceWithoutDiscount: 400,
     id: 17,
+    images: [
+      "/images/excursion1.png",
+      "/images/excursion2.png",
+      "/images/excursion3.png",
+      "/images/excursion4.png",
+    ],
   },
 ];
 

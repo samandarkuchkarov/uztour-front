@@ -1,12 +1,15 @@
 import classes from "./PrimaryBtn.module.css";
+import { RotatingLines } from "react-loader-spinner";
 function PrimaryBtn({
   text,
   disabled,
   onClick,
+  loading,
 }: {
   text: string;
   disabled?: boolean;
   onClick: () => void;
+  loading?: boolean;
 }) {
   return (
     <div
@@ -17,12 +20,23 @@ function PrimaryBtn({
       }}
       className={classes.container}
     >
-      <p
-        style={{ color: disabled ? "#848484" : "#FFFFFF" }}
-        className={classes.text}
-      >
-        {text}
-      </p>
+      {loading ? (
+        <RotatingLines
+          visible={true}
+          width="25"
+          strokeColor="#fff"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+        />
+      ) : (
+        <p
+          style={{ color: disabled ? "#848484" : "#FFFFFF" }}
+          className={classes.text}
+        >
+          {text}
+        </p>
+      )}
     </div>
   );
 }
